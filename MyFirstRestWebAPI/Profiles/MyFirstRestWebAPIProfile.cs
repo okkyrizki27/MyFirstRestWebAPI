@@ -16,6 +16,7 @@ namespace MyFirstRestWebAPI.Profiles
             CreateMap<Command, MyFirstRestWebAPIReadDTO>();
             CreateMap<MyFirstRestWebAPICreateDTO, Command>();
             CreateMap<MyFirstRestWebAPIUpdateDTO, Command>();
+            CreateMap<Command, MyFirstRestWebAPIUpdateDTO>();
         }
     }
 }

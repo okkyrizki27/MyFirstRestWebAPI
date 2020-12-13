@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using MyFirstRestWebAPI.Data;
 using MyFirstRestWebAPI.Dtos;
@@ -70,6 +71,29 @@ namespace MyFirstRestWebAPI.Controllers
                 return NotFound();
             }
             _mapper.Map(myFirstRestWebAPIUpdateDTO, itemModelFromRepo);
+            _repository.Update(itemModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
+        }
+
+        //PATCH api/myfirrstwebapi/{id}
+        [HttpPatch("{id}")]
+        public ActionResult PartialItemUpdate(int id, JsonPatchDocument<MyFirstRestWebAPIUpdateDTO> patchDoc)
+        {
+            var itemModelFromRepo = _repository.GetItemById(id);
+            if (itemModelFromRepo == null)
+            {
+                return NotFound();
+            }
+
+            var itemToPatch = _mapper.Map<MyFirstRestWebAPIUpdateDTO>(itemModelFromRepo);
+            patchDoc.ApplyTo(itemToPatch, ModelState);
+            if (!TryValidateModel(itemToPatch))
+            {
+                return ValidationProblem(ModelState);
+            }
+
+            _mapper.Map(itemToPatch, itemModelFromRepo);
             _repository.Update(itemModelFromRepo);
             _repository.SaveChanges();
             return NoContent();
