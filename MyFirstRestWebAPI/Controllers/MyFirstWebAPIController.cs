@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using MyFirstRestWebAPI.Data;
+using MyFirstRestWebAPI.Dtos;
 using MyFirstRestWebAPI.Models;
 
 namespace MyFirstRestWebAPI.Controllers
@@ -13,27 +15,35 @@ namespace MyFirstRestWebAPI.Controllers
     public class MyFirstWebAPIController : ControllerBase
     {
         private readonly IMyFirstRestWebAPIRepo _repository;
-        public MyFirstWebAPIController(IMyFirstRestWebAPIRepo repository)
+        private readonly IMapper _mapper;
+
+        public MyFirstWebAPIController(IMyFirstRestWebAPIRepo repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
 
         //private readonly MockMyFirstWebAPIRepo _repository = new MockMyFirstWebAPIRepo();
 
         //GET api/myfirstwebapi
         [HttpGet]
-        public ActionResult <IEnumerable<Command>> GetItems()
+        public ActionResult <IEnumerable<MyFirstRestWebAPIReadDTO>> GetItems()
         {
             var commandItems = _repository.GetItems();
-            return Ok(commandItems);
+            return Ok(_mapper.Map<IEnumerable<MyFirstRestWebAPIReadDTO>>(commandItems));
         }
 
         //GET api/myfirrstwebapi/{id}
         [HttpGet("{id}")]
-        public ActionResult<Command> GetItemById(int id)
+        public ActionResult<MyFirstRestWebAPIReadDTO> GetItemById(int id)
         {
             var commandItem = _repository.GetItemById(id);
-            return Ok(commandItem);
+
+            if (commandItem != null)
+            {
+                return Ok(_mapper.Map<MyFirstRestWebAPIReadDTO>(commandItem));
+            }
+            return NotFound();
         }
     }
 }
