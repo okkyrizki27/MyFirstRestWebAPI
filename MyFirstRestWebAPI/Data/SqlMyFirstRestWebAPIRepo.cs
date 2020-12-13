@@ -42,5 +42,14 @@ namespace MyFirstRestWebAPI.Data
         {
             //nothing
         }
+
+        public void Delete(Command cmd)
+        {
+            if (cmd == null)
+            {
+                throw new ArgumentNullException(nameof(cmd));
+            }
+            _context.Commands.Remove(cmd);
+        }
     }
 }

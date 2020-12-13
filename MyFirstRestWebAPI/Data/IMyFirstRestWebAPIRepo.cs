@@ -13,5 +13,6 @@ namespace MyFirstRestWebAPI.Data
         Command GetItemById(int id);
         void CreateItem(Command cmd);
         void Update(Command cmd);
+        void Delete(Command cmd);
     }
 }

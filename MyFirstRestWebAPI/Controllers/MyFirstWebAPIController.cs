@@ -98,5 +98,19 @@ namespace MyFirstRestWebAPI.Controllers
             _repository.SaveChanges();
             return NoContent();
         }
+
+        //DELETE api/myfirrstwebapi/{id}
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var itemModelFromRepo = _repository.GetItemById(id);
+            if (itemModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            _repository.Delete(itemModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
+        }
     }
 }

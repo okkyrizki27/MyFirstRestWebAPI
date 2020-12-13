@@ -38,5 +38,10 @@ namespace MyFirstRestWebAPI.Data
         {
             throw new NotImplementedException();
         }
+
+        public void Delete(Command cmd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
