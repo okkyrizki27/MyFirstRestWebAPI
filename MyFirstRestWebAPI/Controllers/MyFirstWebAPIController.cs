@@ -59,5 +59,20 @@ namespace MyFirstRestWebAPI.Controllers
             return CreatedAtRoute(nameof(GetItemById), new { Id = myFirstRestWebAPIReadDTO.Id }, myFirstRestWebAPIReadDTO);
             //return Ok(myFirstRestWebAPIReadDTO);
         }
+
+        //PUT api/myfirrstwebapi/{id}
+        [HttpPut("{id}")]
+        public ActionResult Update(int id, MyFirstRestWebAPIUpdateDTO myFirstRestWebAPIUpdateDTO)
+        {
+            var itemModelFromRepo = _repository.GetItemById(id);
+            if(itemModelFromRepo == null)
+            {
+                return NotFound();
+            }
+            _mapper.Map(myFirstRestWebAPIUpdateDTO, itemModelFromRepo);
+            _repository.Update(itemModelFromRepo);
+            _repository.SaveChanges();
+            return NoContent();
+        }
     }
 }

@@ -33,5 +33,10 @@ namespace MyFirstRestWebAPI.Data
         {
             throw new NotImplementedException();
         }
+
+        public void Update(Command cmd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

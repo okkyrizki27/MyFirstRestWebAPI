@@ -12,5 +12,6 @@ namespace MyFirstRestWebAPI.Data
         IEnumerable<Command> GetItems(); //Command in here is used Command class from Models
         Command GetItemById(int id);
         void CreateItem(Command cmd);
+        void Update(Command cmd);
     }
 }
