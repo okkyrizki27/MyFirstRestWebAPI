@@ -23,5 +23,19 @@ namespace MyFirstRestWebAPI.Data
         {
             return _context.Commands.ToList();
         }
+
+        public void CreateItem(Command cmd)
+        {
+            if(cmd == null)
+            {
+                throw new ArgumentNullException(nameof(cmd));
+            }
+            _context.Commands.Add(cmd);
+        }
+
+        public bool SaveChanges()
+        {
+            return (_context.SaveChanges() >= 0);
+        }
     }
 }

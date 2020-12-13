@@ -8,7 +8,9 @@ namespace MyFirstRestWebAPI.Data
 {
     public interface IMyFirstRestWebAPIRepo
     {
+        bool SaveChanges();
         IEnumerable<Command> GetItems(); //Command in here is used Command class from Models
         Command GetItemById(int id);
+        void CreateItem(Command cmd);
     }
 }

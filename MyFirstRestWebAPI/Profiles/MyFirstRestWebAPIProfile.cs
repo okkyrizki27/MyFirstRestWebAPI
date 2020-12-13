@@ -12,7 +12,9 @@ namespace MyFirstRestWebAPI.Profiles
     {
         public MyFirstRestWebAPIProfile()
         {
+            //Source -> Target
             CreateMap<Command, MyFirstRestWebAPIReadDTO>();
+            CreateMap<MyFirstRestWebAPICreateDTO, Command>();
         }
     }
 }

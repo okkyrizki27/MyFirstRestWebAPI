@@ -23,5 +23,15 @@ namespace MyFirstRestWebAPI.Data
         {
             return new Command { Id = 0, HowTo = "Boil an Egg", Line = "Boil water", Platform = "Kettle & Pan" };
         }
+
+        public bool SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateItem(Command cmd)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
